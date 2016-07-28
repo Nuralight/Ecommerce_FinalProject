@@ -1,0 +1,21 @@
+<?php
+include_once("myshop.php");
+$obj= new myshop();
+$row=$obj->earrings_list();
+$data=array();
+while($row=$obj->fetch()){
+	$data[]=$row;
+}
+
+
+require_once  './Twig/Autoloader.php';
+Twig_Autoloader:: register();
+$loader= new Twig_loader_Filesystem('./template');
+$twig= new Twig_Environment($loader);
+$template=$twig->loadTemplate('portfolio4.tpl');
+$params=array(
+'Name'=>'Latest Brands of Necklaces','values'=>$data);
+$template->display($params);
+
+
+?>
